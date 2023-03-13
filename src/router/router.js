@@ -31,7 +31,7 @@ const router = createRouter({
       ],
     },
     {
-      path: "/request",
+      path: "/requests",
       name: "RequestReceived",
       component: RequestReceived,
     },
