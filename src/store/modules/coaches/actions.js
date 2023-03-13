@@ -20,7 +20,7 @@ export default {
     // const responseData = await response.json();
 
     if (!response.ok) {
-      const error = new Error(responseData.message || "Faild to fetch");
+      const error = new Error(this.responseData.message || "Faild to fetch");
       throw error;
     }
 
@@ -31,7 +31,10 @@ export default {
 
     // context.commit("registerCoach", coachData);
   },
-  async loadCoaches(context) {
+  async loadCoaches(context, payload) {
+    if (payload.forceRefresh && !context.getters.shouldUpdate) {
+      return;
+    }
     const response = await fetch(
       `https://find-a-coach-f72b3-default-rtdb.europe-west1.firebasedatabase.app/coaches.json`
     );
@@ -55,5 +58,6 @@ export default {
       coaches.push(coach);
     }
     context.commit("setCoaches", coaches);
+    context.commit("setFetchTimestamp");
   },
 };

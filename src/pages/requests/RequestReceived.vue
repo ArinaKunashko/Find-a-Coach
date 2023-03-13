@@ -42,7 +42,7 @@ export default {
     },
   },
   create() {
-    this.loadRequests()
+    this.loadRequests();
   },
   methods: {
     async loadRequests() {
